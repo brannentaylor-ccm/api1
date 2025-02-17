@@ -6,27 +6,16 @@
 code from copilot"""
 
 import logging
-import os
 
-def setup_logging(filename:str=''):
-    # Ensure the log directory exists at the same level as src
-    log_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..', 'log'))
-    if not os.path.exists(log_directory):
-        os.makedirs(log_directory)
-
+def setup_logging(filename:str='logging.log'):
     # Create a custom logger
     logger = logging.getLogger(__name__)
     logger.setLevel(logging.DEBUG)
 
     # Create handlers
     c_handler = logging.StreamHandler()
-
-    if not filename:
-        filename = os.path.join(log_directory, 'logging.log')
-    else:
-        filename = os.path.join(log_directory, filename)
-    
     f_handler = logging.FileHandler(filename)
+
     c_handler.setLevel(logging.WARN)
     f_handler.setLevel(logging.DEBUG)
 
@@ -45,7 +34,7 @@ def setup_logging(filename:str=''):
 def main():
     """Main is a runner function, used to call individual functions in order."""
     logger = setup_logging()
-    logger.info(f'Main function - from setup_logging')
+    logger.info(f'i am main func')
 
 
 ############### START HERE #####################

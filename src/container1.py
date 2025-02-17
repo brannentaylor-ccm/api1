@@ -1,6 +1,5 @@
 #!/usr/bin/python3
 
-
 """Creates a file to put in a container - using modules that we don't have locally, but exist in the container.
 
 watching 'containerize python applications with Docker - Neural 9
@@ -13,18 +12,14 @@ This code creates a "server", listening for connections on port 9999, returning 
 #imports
 import sys
 import os
-# In summary, this line of code ensures that the parent directory of the current 
-# script (api1) is included in the module search path. This allows you to import 
-# modules from the parent directory, such as setup_logging from the src directory.
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 import time
 import socket
 from sklearn.datasets import load_iris
-import sys
 import signal #look for control c to stop
 import logging
-from src import setup_logging
+import setup_logging  # Updated import statement
 
 data = load_iris()
 
@@ -87,5 +82,5 @@ def main(logger):
 # if __name__ is True, then go set some settings, and then go run the 'main()' function.
 ################################################
 if __name__ == "__main__":
-    logger = setup_logging.setup_logging('server.log')
+    logger = setup_logging.setup_logging('logging.log')
     main(logger)
