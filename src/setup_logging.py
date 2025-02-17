@@ -6,6 +6,7 @@
 code from copilot"""
 
 import logging
+import os
 
 def setup_logging(filename:str='logging.log'):
     # Create a custom logger
@@ -14,14 +15,18 @@ def setup_logging(filename:str='logging.log'):
 
     # Create handlers
     c_handler = logging.StreamHandler()
-    f_handler = logging.FileHandler(filename)
 
+    # Adjust the path to save the log file one level up from the /src directory
+    log_directory = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    log_file_path = os.path.join(log_directory, filename)
+    
+    f_handler = logging.FileHandler(log_file_path)
     c_handler.setLevel(logging.WARN)
     f_handler.setLevel(logging.DEBUG)
 
     # Create formatters and add them to the handlers
-    c_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
-    f_format = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    c_format = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s  - %(funcName)s - %(message)s')
+    f_format = logging.Formatter('%(asctime)s - %(levelname)s - %(name)s  - %(funcName)s - %(message)s')
     c_handler.setFormatter(c_format)
     f_handler.setFormatter(f_format)
 
